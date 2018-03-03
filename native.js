@@ -2,16 +2,32 @@ var DISPLAY_STYLE;
 var CLASS_NAME;
 
 var _native = {
-  init: function(
-    zone,
-    options = {
+  construct: function(e) {
+    var default_options = {
       class: "native-ad",
-      display: "block"
-    }
-  ) {
-    let srv = document.createElement("script");
-    srv.src =
+      display: "block",
+      placement: ""
+    };
+
+    if (typeof e == "undefined") return default_options;
+    Object.keys(default_options).forEach((key, index) => {
+      if (typeof e[key] == "undefined") {
+        e[key] = default_options[key];
+      }
+    });
+    return e;
+  },
+  init: function(zone, options) {
+    options = _native.construct(options);
+
+    let jsonUrl =
       "https://srv.buysellads.com/ads/" + zone + ".json?callback=_native_go";
+    if (options["placement"] !== "") {
+      jsonUrl += "&segment=placement:" + options["placement"];
+    }
+
+    let srv = document.createElement("script");
+    srv.src = jsonUrl;
     document.getElementsByTagName("head")[0].appendChild(srv);
 
     CLASS_NAME = options["class"];
@@ -63,7 +79,6 @@ var _native_go = function(json) {
 
 // Install the following script to trigger the ad
 
-// _native.init("CKYD553E", {
-//   class: 'native-ad',
-//   display: 'flex'
+// _native.init("CKYDEK3N",{
+//   display: 'block'
 // });
