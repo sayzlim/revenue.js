@@ -1,10 +1,11 @@
 var _native = {
   construct: function(e) {
     var default_options = {
-      class: "native-ad",
+      targetClass: "native-ad",
       display: "block",
       visibleClass: "native-show",
-      placement: ""
+      placement: "",
+      prefix: "native"
     };
 
     if (typeof e == "undefined") return default_options;
@@ -17,9 +18,10 @@ var _native = {
   },
   init: function(zone, options) {
     options = this.construct(options);
-    this.className = options["class"];
+    this.className = options["targetClass"];
     this.displayStyle = options["display"];
     this.visibleClassName = options["visibleClass"];
+    this.prefix = options["prefix"];
 
     let jsonUrl = "https://srv.buysellads.com/ads/" + zone + ".json?callback=_native_go";
     if (options["placement"] !== "") {
@@ -38,41 +40,46 @@ var _native = {
       .filter(ad => {
         return ad.hasOwnProperty("statlink");
       });
+  },
+  pixel: function(p) {
+    let c = "";
+    if (p)
+      p.split("||").forEach((pixel, index) => {
+        c += '<img src="' + pixel + '" style="display:none;" height="0" width="0" />';
+      });
+    return c;
   }
 };
 
 var _native_go = function(json) {
   let ads = _native.sanitize(json["ads"]);
 
-  let selectedClassName = document.querySelectorAll("." + _native.className);
-
-  selectedClassName.forEach((className, index) => {
-    if (typeof ads[index] !== "undefined" && typeof className !== "undefined") {
+  document.querySelectorAll("." + _native.className).forEach((className, index) => {
+    if (ads[index] && className) {
       let adElement = document.getElementsByClassName(_native.className)[index].innerHTML;
 
       let ad = adElement
-        .replace(/#native_bg_color#/g, ads[index]["backgroundColor"])
-        .replace(/#native_bg_color_hover#/g, ads[index]["backgroundHoverColor"])
-        .replace(/#native_company#/g, ads[index]["company"])
-        .replace(/#native_cta#/g, ads[index]["callToAction"])
-        .replace(/#native_cta_bg_color#/g, ads[index]["ctaBackgroundColor"])
-        .replace(/#native_cta_bg_color_hover#/g, ads[index]["ctaBackgroundHoverColor"])
-        .replace(/#native_cta_text_color#/g, ads[index]["ctaTextColor"])
-        .replace(/#native_cta_text_color_hover#/g, ads[index]["ctaTextColorHover"])
-        .replace(/#native_desc#/g, ads[index]["description"])
-        .replace(/#native_index#/g, "native-index-" + ads[index]["i"])
-        .replace(/#native_image#/g, ads[index]["image"])
-        .replace(/#native_link#/g, ads[index]["statlink"])
-        .replace(/#native_logo#/g, ads[index]["logo"])
-        .replace(/#native_text_color#/g, ads[index]["textColor"])
-        .replace(/#native_text_color_hover#/g, ads[index]["textColorHover"])
-        .replace(/#native_title#/g, ads[index]["title"]);
+        .replace(new RegExp("#" + _native.prefix + "_bg_color#", "g"), ads[index]["backgroundColor"])
+        .replace(new RegExp("#" + _native.prefix + "_bg_color_hover#", "g"), ads[index]["backgroundHoverColor"])
+        .replace(new RegExp("#" + _native.prefix + "_company#", "g"), ads[index]["company"])
+        .replace(new RegExp("#" + _native.prefix + "_cta#", "g"), ads[index]["callToAction"])
+        .replace(new RegExp("#" + _native.prefix + "_cta_bg_color#", "g"), ads[index]["ctaBackgroundColor"])
+        .replace(new RegExp("#" + _native.prefix + "_cta_bg_color_hover#", "g"), ads[index]["ctaBackgroundHoverColor"])
+        .replace(new RegExp("#" + _native.prefix + "_cta_color#", "g"), ads[index]["ctaTextColor"])
+        .replace(new RegExp("#" + _native.prefix + "_cta_color_hover#", "g"), ads[index]["ctaTextColorHover"])
+        .replace(new RegExp("#" + _native.prefix + "_desc#", "g"), ads[index]["description"])
+        .replace(new RegExp("#" + _native.prefix + "_index#", "g"), _native.prefix + "-" + ads[index]["i"])
+        .replace(new RegExp("#" + _native.prefix + "_img#", "g"), ads[index]["image"])
+        .replace(new RegExp("#" + _native.prefix + "_link#", "g"), ads[index]["statlink"])
+        .replace(new RegExp("#" + _native.prefix + "_logo#", "g"), ads[index]["logo"])
+        .replace(new RegExp("#" + _native.prefix + "_color#", "g"), ads[index]["textColor"])
+        .replace(new RegExp("#" + _native.prefix + "_color_hover#", "g"), ads[index]["textColorHover"])
+        .replace(new RegExp("#" + _native.prefix + "_title#", "g"), ads[index]["title"]);
 
       document.getElementsByClassName(_native.className)[index].innerHTML = null;
-      document.getElementsByClassName(_native.className)[index].innerHTML += ad;
+      document.getElementsByClassName(_native.className)[index].innerHTML += ad + _native.pixel(ads[index]["pixel"]);
       document.getElementsByClassName(_native.className)[index].style.display = _native.displayStyle;
-      if (_native.className !== "")
-        document.getElementsByClassName(_native.className)[index].className += " " + _native.visibleClassName;
+      if (_native.className !== "") document.getElementsByClassName(_native.className)[index].className += " " + _native.visibleClassName;
     } else {
       document.getElementsByClassName(_native.className)[index].innerHTML = null;
       document.getElementsByClassName(_native.className)[index].style.display = "none";
@@ -82,6 +89,8 @@ var _native_go = function(json) {
 
 // Install the following script to trigger the ad
 
-_native.init("CKYDLK3N", {
-  visibleClass: "native-show"
+_native.init("CKYIT2QJ", {
+  visibleClass: "native-show",
+  prefix: "bsa"
 });
+
