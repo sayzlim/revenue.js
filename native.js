@@ -86,11 +86,3 @@ var _native_go = function(json) {
     }
   });
 };
-
-// Install the following script to trigger the ad
-
-_native.init("CKYIT2QJ", {
-  visibleClass: "native-show",
-  prefix: "bsa"
-});
-
