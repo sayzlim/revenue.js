@@ -1,11 +1,12 @@
 var _native = {
   construct: function(e) {
     var default_options = {
-      targetClass: "native-ad",
       display: "block",
-      visibleClass: "native-show",
+      fallback: "",
       placement: "",
-      prefix: "native"
+      prefix: "native",
+      targetClass: "native-ad",
+      visibleClass: "native-show"
     };
 
     if (typeof e == "undefined") return default_options;
@@ -20,8 +21,10 @@ var _native = {
     options = this.construct(options);
     this.className = options["targetClass"];
     this.displayStyle = options["display"];
+    this.fallback = options["fallback"];
     this.visibleClassName = options["visibleClass"];
     this.prefix = options["prefix"];
+    this.placement = options["placement"];
 
     let jsonUrl = "https://srv.buysellads.com/ads/" + zone + ".json?callback=_native_go";
     if (options["placement"] !== "") {
@@ -53,6 +56,15 @@ var _native = {
 
 var _native_go = function(json) {
   let ads = _native.sanitize(json["ads"]);
+
+  if (ads.length < 1) {
+    document.querySelectorAll("." + _native.className).forEach((className, index) => {
+      document.getElementsByClassName(_native.className)[index].innerHTML = _native.fallback;
+      if (_native.fallback !== "") document.getElementsByClassName(_native.className)[index].className += " " + _native.visibleClassName;
+    });
+
+    return "No ads found";
+  }
 
   document.querySelectorAll("." + _native.className).forEach((className, index) => {
     if (ads[index] && className) {
