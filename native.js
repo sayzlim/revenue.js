@@ -44,11 +44,11 @@ var _native = {
         return ad.hasOwnProperty("statlink");
       });
   },
-  pixel: function(p) {
+  pixel: function(p, timestamp) {
     let c = "";
     if (p)
       p.split("||").forEach((pixel, index) => {
-        c += '<img src="' + pixel + '" style="display:none;" height="0" width="0" />';
+        c += '<img src="' + pixel.replace("[timestamp]", timestamp) + '" style="display:none;" height="0" width="0" />';
       });
     return c;
   }
@@ -89,7 +89,7 @@ var _native_go = function(json) {
         .replace(new RegExp("#" + _native.prefix + "_title#", "g"), ads[index]["title"]);
 
       document.getElementsByClassName(_native.className)[index].innerHTML = null;
-      document.getElementsByClassName(_native.className)[index].innerHTML += ad + _native.pixel(ads[index]["pixel"]);
+      document.getElementsByClassName(_native.className)[index].innerHTML += ad + _native.pixel(ads[index]["pixel"], ads[index]["timestamp"]);
       document.getElementsByClassName(_native.className)[index].style.display = _native.displayStyle;
       if (_native.className !== "") document.getElementsByClassName(_native.className)[index].className += " " + _native.visibleClassName;
     } else {
