@@ -1,16 +1,24 @@
 ### Native JS
 Native.js is the unofficial standalone framework to display ads from BuySellAds Monetization Framework. You can sign up as a publisher by [visiting the Native page](https://www.buysellads.com/publishers/native).
 
-The framework allows publishers to insert placeholders in their HTML which will get replaced with the correct value upon initialization. The main idea is the publishers can decide their ad structure and use the color value in their styles.
+The framework allows publishers to insert placeholders in their HTML which will get replaced with the correct value upon initialization.
+
+The idea behind this framework is to allow publishers to decide the ad structure and use the color values from the API in their styles.
 
 ### Examples and Demos
+Demos are used to showcase different type of common ad layout you can create using the framework. You may edit the HTML and the CSS to match your site design.
+
+You don’t have to select one of the layouts from the demos below. In face, we encourage publishers to design the ad format from scratch and use the placeholders to display the ad value.
+
 - Grid Based Demo: https://codepen.io/sayzlim/pen/OvJPJR
 - Inline Sponsor Demo: https://codepen.io/sayzlim/pen/GxRgYE
-- Standar Banner Demo: https://codepen.io/sayzlim/pen/oqWyyL
+- Standard Banner Demo: https://codepen.io/sayzlim/pen/oqWyyL
 
 
 ### How to Use
-Download the script and insert in the before </head> of your site. Replace https://codepen.io/sayzlim/pen/geOONP.js with the path to your 
+1. Download the [native.js](https://github.com/sayzlim/native.js/blob/master/native.js) file and host it on your server.
+
+2. Insert the file before </head> of your site. Replace `path/to/native.js` with the path to your `native.js` hosted on your site.
 
 ```
 <div class="native-ad> // Required
@@ -50,7 +58,7 @@ The prefix you’re inserting for the placeholder. The default is `native` for p
 The target class accept the class name of the HTML element you’ll be targeting. Only the content of the HTML inside the target will be replaced with the values returned from the Native API. The default value is `native-ad`.
 
 **visibleClass**
-The name of the class that will be inserted when the ad successfully replace the placeholder with the returned value. It’s used when you want to use CSS to create transition effect for when the ads are visible.
+The name of the class that will be inserted when the ad successfully replace the placeholder with the returned value. It’s used when you want to use CSS to create transition effect when the ads are visible.
 
 ### Available Placeholders
 The placeholder must be enclosed with hashtag for the framework to detect. For example, if you wish to make the ad looks better by displaying ad background color, you can enter `#native_bg_color#` inside `.native-ad` class for the placeholders to be replaced with correct value.

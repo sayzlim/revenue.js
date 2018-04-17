@@ -26,7 +26,7 @@ var _native = {
     this.prefix = options["prefix"];
     this.placement = options["placement"];
 
-    let jsonUrl = "https://srv.buysellads.com/ads/" + zone + ".json?callback=_native_go";
+    let jsonUrl = `https://srv.buysellads.com/ads/${zone}.json?callback=_native_go`;
     if (options["placement"] !== "") {
       jsonUrl += "&segment=placement:" + options["placement"];
     }
