@@ -13,6 +13,7 @@ You don’t have to select one of the layouts from the demos below. In face, we 
 - Grid Based Demo: https://codepen.io/sayzlim/pen/OvJPJR
 - Inline Sponsor Demo: https://codepen.io/sayzlim/pen/GxRgYE
 - Standard Banner Demo: https://codepen.io/sayzlim/pen/oqWyyL
+- Ribbon Demo: https://codepen.io/sayzlim/pen/NMjKEq
 
 
 ### How to Use
