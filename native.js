@@ -3,6 +3,7 @@ var _native = {
     var default_options = {
       display: "block",
       fallback: "",
+      ignore: "false",
       placement: "",
       prefix: "native",
       targetClass: "native-ad",
@@ -22,6 +23,7 @@ var _native = {
     this.className = options["targetClass"];
     this.displayStyle = options["display"];
     this.fallback = options["fallback"];
+    this.ignore = options["ignore"];
     this.visibleClassName = options["visibleClass"];
     this.prefix = options["prefix"];
     this.placement = options["placement"];
@@ -29,6 +31,9 @@ var _native = {
     let jsonUrl = `https://srv.buysellads.com/ads/${zone}.json?callback=_native_go`;
     if (options["placement"] !== "") {
       jsonUrl += "&segment=placement:" + options["placement"];
+    }
+    if (options["ignore"] == "true" ) {
+      jsonUrl += "&ignore=yes"
     }
 
     let srv = document.createElement("script");
@@ -82,6 +87,7 @@ var _native_go = function(json) {
         .replace(new RegExp("#" + _native.prefix + "_desc#", "g"), ads[index]["description"])
         .replace(new RegExp("#" + _native.prefix + "_index#", "g"), _native.prefix + "-" + ads[index]["i"])
         .replace(new RegExp("#" + _native.prefix + "_img#", "g"), ads[index]["image"])
+        .replace(new RegExp("#" + _native.prefix + "_small_img#", "g"), ads[index]["smallImage"])
         .replace(new RegExp("#" + _native.prefix + "_link#", "g"), ads[index]["statlink"])
         .replace(new RegExp("#" + _native.prefix + "_logo#", "g"), ads[index]["logo"])
         .replace(new RegExp("#" + _native.prefix + "_color#", "g"), ads[index]["textColor"])

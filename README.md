@@ -1,14 +1,14 @@
 ### Native JS
-Native.js is the unofficial standalone framework to display ads from BuySellAds Monetization Framework. You can sign up as a publisher by [visiting the Native page](https://www.buysellads.com/publishers/native).
+Native.js is the unofficial standalone framework to display ads from BuySellAds Monetization Framework. Send me a DM at [@sayzlim](https://twitter.com/sayzlim) if you wish to sign up as a publisher.
 
-The framework allows publishers to insert placeholders in their HTML which will get replaced with the correct value upon initialization.
+The framework allows publishers to insert placeholders in their HTML which will get replaced with the ads valuee upon script initialization.
 
-The idea behind this framework is to allow publishers to decide the ad structure and use the color values from the API in their styles.
+The idea behind this framework is to allow publishers to decide the ad HTML structure and style the ad design with the color values returned from the API.
 
 ### Examples and Demos
 Demos are used to showcase different type of common ad layout you can create using the framework. You may edit the HTML and the CSS to match your site design.
 
-You don’t have to select one of the layouts from the demos below. In face, we encourage publishers to design the ad format from scratch and use the placeholders to display the ad value.
+You don’t have to select one of the layouts from the demos below. In fact, we encourage publishers to design the ad format from scratch and use the placeholders to display the ad value.
 
 - Grid Based Demo: https://codepen.io/sayzlim/pen/OvJPJR
 - Inline Sponsor Demo: https://codepen.io/sayzlim/pen/GxRgYE
@@ -39,6 +39,7 @@ You don’t have to select one of the layouts from the demos below. In face, we 
 default_options = {
   display: "block",
   fallback: "",
+  ignore: "false",
   placement: "",
   prefix: "native",
   targetClass: "native-ad",
@@ -46,11 +47,27 @@ default_options = {
 };
 ```
 
+Here’s an example of starting the script by passing these options.
+
+```
+<div class="native-ad> // Required
+<script src="path/to/native.js"></script>
+<script>
+  _native.init("CKYIT2QJ", {
+    ignore: "true",
+    targetClass: "native-js"
+  });
+</script>
+```
+
 **display**
 The framework will insert inline style according to the value set here. By default, the framework will set the target class to `display: block`. You can change it to `grid` or `flex` according to the layout you want to create.
 
 **fallback**
 You can insert HTML element to display as the fallback when there is no ads returned from the API. You can use backtick to wrap escape the quote automatically.
+
+**ignore**
+Set the value to `true` for the development purpose.
 
 **prefix**
 The prefix you’re inserting for the placeholder. The default is `native` for placeholders like `#native_link#`. If you change the value to `bsa`, you must use `#bsa_link#` as the placeholder.
