@@ -12,8 +12,11 @@ You don’t have to select one of the layouts from the demos below. In fact, we 
 
 - Grid Based Demo: https://codepen.io/sayzlim/pen/OvJPJR
 - Inline Sponsor Demo: https://codepen.io/sayzlim/pen/GxRgYE
-- Standard Banner Demo: https://codepen.io/sayzlim/pen/oqWyyL
+- Paragraph Inline Demo: https://codepen.io/sayzlim/pen/qyojRJ
 - Ribbon Demo: https://codepen.io/sayzlim/pen/NMjKEq
+- Standard Banner Demo: https://codepen.io/sayzlim/pen/oqWyyL
+
+You can also refer to the collection page at https://codepen.io/collection/XOmLrK/
 
 
 ### How to Use
