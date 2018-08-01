@@ -23,6 +23,9 @@ You don’t have to select one of the layouts from the demos below. In fact, we 
 
 ```
 <div class="native-ad> // Required
+    Write the HTML structure inside this element.
+</div>
+
 <script src="path/to/native.js"></script>
 <script>
   _native.init("CKYIT2QJ"); // Demo Zone Key
@@ -50,7 +53,10 @@ default_options = {
 Here’s an example of starting the script by passing these options.
 
 ```
-<div class="native-ad> // Required
+<div class="native-js> // Required
+    Write the HTML structure inside the targetClass element.
+</div>
+
 <script src="path/to/native.js"></script>
 <script>
   _native.init("CKYIT2QJ", {
