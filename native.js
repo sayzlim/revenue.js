@@ -1,10 +1,11 @@
 var _native = {
   construct: function(e) {
     var default_options = {
+      carbonZoneKey: "",
       display: "block",
       fallback: "",
       ignore: "false",
-      placement: "",
+      placement: "nativejs",
       prefix: "native",
       targetClass: "native-ad",
       visibleClass: "native-show"
@@ -20,7 +21,8 @@ var _native = {
   },
   init: function(zone, options) {
     options = this.construct(options);
-    this.className = options["targetClass"];
+    this.carbonZoneKey = options["carbonZoneKey"];
+    this.targetClass = options["targetClass"];
     this.displayStyle = options["display"];
     this.fallback = options["fallback"];
     this.ignore = options["ignore"];
@@ -32,13 +34,20 @@ var _native = {
     if (options["placement"] !== "") {
       jsonUrl += "&segment=placement:" + options["placement"];
     }
-    if (options["ignore"] == "true" ) {
+    if (options["ignore"] == "true") {
       jsonUrl += "&ignore=yes"
     }
 
     let srv = document.createElement("script");
     srv.src = jsonUrl;
     document.getElementsByTagName("head")[0].appendChild(srv);
+  },
+  carbonFallback: function() {
+    let carbonScript = document.createElement("script");
+    carbonScript.src = "//cdn.carbonads.com/carbon.js?serve=" + _native.carbonZoneKey + "&placement=" + _native.placement;
+    carbonScript.id = "_carbonads_js";
+
+    return carbonScript;
   },
   sanitize: function(ads) {
     return ads
@@ -63,17 +72,18 @@ var _native_go = function(json) {
   let ads = _native.sanitize(json["ads"]);
 
   if (ads.length < 1) {
-    document.querySelectorAll("." + _native.className).forEach((className, index) => {
-      document.getElementsByClassName(_native.className)[index].innerHTML = _native.fallback;
-      if (_native.fallback !== "") document.getElementsByClassName(_native.className)[index].className += " " + _native.visibleClassName;
+    document.querySelectorAll("." + _native.targetClass).forEach((className, index) => {
+      document.getElementsByClassName(_native.targetClass)[index].innerHTML = _native.fallback;
+      if (_native.fallback !== "") document.getElementsByClassName(_native.targetClass)[index].targetClass += " " + _native.visibleClassName;
+      if (_native.carbonZoneKey !== "") document.getElementsByClassName(_native.targetClass)[index].appendChild(_native.carbonFallback());
     });
 
     return "No ads found";
   }
 
-  document.querySelectorAll("." + _native.className).forEach((className, index) => {
+  document.querySelectorAll("." + _native.targetClass).forEach((className, index) => {
     if (ads[index] && className) {
-      let adElement = document.getElementsByClassName(_native.className)[index].innerHTML;
+      let adElement = document.getElementsByClassName(_native.targetClass)[index].innerHTML;
 
       let ad = adElement
         .replace(new RegExp("#" + _native.prefix + "_bg_color#", "g"), ads[index]["backgroundColor"])
@@ -94,13 +104,13 @@ var _native_go = function(json) {
         .replace(new RegExp("#" + _native.prefix + "_color_hover#", "g"), ads[index]["textColorHover"])
         .replace(new RegExp("#" + _native.prefix + "_title#", "g"), ads[index]["title"]);
 
-      document.getElementsByClassName(_native.className)[index].innerHTML = null;
-      document.getElementsByClassName(_native.className)[index].innerHTML += ad + _native.pixel(ads[index]["pixel"], ads[index]["timestamp"]);
-      document.getElementsByClassName(_native.className)[index].style.display = _native.displayStyle;
-      if (_native.className !== "") document.getElementsByClassName(_native.className)[index].className += " " + _native.visibleClassName;
+      document.getElementsByClassName(_native.targetClass)[index].innerHTML = null;
+      document.getElementsByClassName(_native.targetClass)[index].innerHTML += ad + _native.pixel(ads[index]["pixel"], ads[index]["timestamp"]);
+      document.getElementsByClassName(_native.targetClass)[index].style.display = _native.displayStyle;
+      if (_native.targetClass !== "") document.getElementsByClassName(_native.targetClass)[index].targetClass += " " + _native.visibleClassName;
     } else {
-      document.getElementsByClassName(_native.className)[index].innerHTML = null;
-      document.getElementsByClassName(_native.className)[index].style.display = "none";
+      document.getElementsByClassName(_native.targetClass)[index].innerHTML = null;
+      document.getElementsByClassName(_native.targetClass)[index].style.display = "none";
     }
   });
 };

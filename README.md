@@ -43,10 +43,11 @@ You can also refer to the collection page at https://codepen.io/collection/XOmLr
 
 ```
 default_options = {
+  carbonZoneKey: "",
   display: "block",
   fallback: "",
   ignore: "false",
-  placement: "",
+  placement: "nativejs",
   prefix: "native",
   targetClass: "native-ad",
   visibleClass: "native-show"
@@ -86,6 +87,28 @@ The target class accept the class name of the HTML element you’ll be targeting
 
 **visibleClass**
 The name of the class that will be inserted when the ad successfully replace the placeholder with the returned value. It’s used when you want to use CSS to create transition effect when the ads are visible.
+
+
+### Using Carbon Ads as Fallback
+You can also use Carbon Ads as the fallback when no ads are returned from the API. Carbon covers more regions compared to the Native ad units so you can maximize the ad revenue.
+
+Here’s an example of passing your Carbon zone key as the fallback:
+
+```
+<div class="native-js> // Required
+    Write the HTML structure inside the targetClass element.
+</div>
+
+<script src="path/to/native.js"></script>
+<script>
+  _native.init("CKYIT2QJ", {
+    carbonZoneKey: 'CKYICK7J'
+    ignore: "true",
+    targetClass: "native-js",
+    placement: "yoursitecom"
+  });
+</script>
+```
 
 ### Available Placeholders
 The placeholder must be enclosed with hashtag for the framework to detect. For example, if you wish to make the ad looks better by displaying ad background color, you can enter `#native_bg_color#` inside `.native-ad` class for the placeholders to be replaced with correct value.
