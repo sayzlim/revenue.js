@@ -74,7 +74,7 @@ var _native_go = function(json) {
   if (ads.length < 1) {
     document.querySelectorAll("." + _native.targetClass).forEach((className, index) => {
       document.getElementsByClassName(_native.targetClass)[index].innerHTML = _native.fallback;
-      if (_native.fallback !== "") document.getElementsByClassName(_native.targetClass)[index].targetClass += " " + _native.visibleClassName;
+      if (_native.fallback !== "" || _native.carbonZoneKey !== "") document.getElementsByClassName(_native.targetClass)[index].className += " " + _native.visibleClassName;
       if (_native.carbonZoneKey !== "") document.getElementsByClassName(_native.targetClass)[index].appendChild(_native.carbonFallback());
     });
 
@@ -107,7 +107,7 @@ var _native_go = function(json) {
       document.getElementsByClassName(_native.targetClass)[index].innerHTML = null;
       document.getElementsByClassName(_native.targetClass)[index].innerHTML += ad + _native.pixel(ads[index]["pixel"], ads[index]["timestamp"]);
       document.getElementsByClassName(_native.targetClass)[index].style.display = _native.displayStyle;
-      if (_native.targetClass !== "") document.getElementsByClassName(_native.targetClass)[index].targetClass += " " + _native.visibleClassName;
+      if (_native.targetClass !== "") document.getElementsByClassName(_native.targetClass)[index].className += " " + _native.visibleClassName;
     } else {
       document.getElementsByClassName(_native.targetClass)[index].innerHTML = null;
       document.getElementsByClassName(_native.targetClass)[index].style.display = "none";
