@@ -49,8 +49,7 @@ default_options = {
   ignore: "false",
   placement: "nativejs",
   prefix: "native",
-  targetClass: "native-ad",
-  visibleClass: "native-show"
+  targetClass: "native-ad"
 };
 ```
 
@@ -70,9 +69,6 @@ Here’s an example of starting the script by passing these options.
 </script>
 ```
 
-**display**
-The framework will insert inline style according to the value set here. By default, the framework will set the target class to `display: block`. You can change it to `grid` or `flex` according to the layout you want to create.
-
 **fallback**
 You can insert HTML element to display as the fallback when there is no ads returned from the API. You can use backtick to wrap escape the quote automatically.
 
@@ -84,9 +80,6 @@ The prefix you’re inserting for the placeholder. The default is `native` for p
 
 **targetClass**
 The target class accept the class name of the HTML element you’ll be targeting. Only the content of the HTML inside the target will be replaced with the values returned from the Native API. The default value is `native-ad`.
-
-**visibleClass**
-The name of the class that will be inserted when the ad successfully replace the placeholder with the returned value. It’s used when you want to use CSS to create transition effect when the ads are visible.
 
 
 ### Using Carbon Ads as Fallback

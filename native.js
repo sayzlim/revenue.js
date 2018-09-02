@@ -3,13 +3,11 @@ var _native = (function () {
   var _construct = function (e) {
     var defaultOptions = {
       carbonZoneKey: '',
-      display: 'block',
       fallback: '',
       ignore: 'false',
       placement: '',
       prefix: 'native',
-      targetClass: 'native-ad',
-      visibleClass: 'native-show'
+      targetClass: 'native-ad'
     }
 
     if (typeof e === 'undefined') return defaultOptions
@@ -87,7 +85,7 @@ var _native_go = function (json) {
     selectedClass.forEach((className, index) => {
       let selectedTarget = document.getElementsByClassName(options['targetClass'])[index]
 
-      if (options['fallback'] !== '' || options['carbonZoneKey'] !== '') selectedTarget.className += ' ' + options['visibleClass']
+      if (options['fallback'] !== '' || options['carbonZoneKey'] !== '') selectedTarget.setAttribute('data-state', 'visible')
       selectedTarget.innerHTML = options['fallback']
       if (options['carbonZoneKey'] !== '') selectedTarget.appendChild(_native.carbon(options))
     })
@@ -124,8 +122,7 @@ var _native_go = function (json) {
 
       selectedTarget.innerHTML = null
       selectedTarget.innerHTML += adInnerHtml + _native.pixel(ad['pixel'], ad['timestamp'])
-      selectedTarget.style.display = options['display']
-      if (options['targetClass'] !== '') selectedTarget.className += ' ' + options['visibleClass']
+      selectedTarget.setAttribute('data-state', 'visible')
     } else {
       selectedTarget.innerHTML = null
       selectedTarget.style.display = 'none'
