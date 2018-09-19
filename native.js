@@ -69,8 +69,8 @@ var _native = (function () {
       var currentDate = new Date() / 1000
       var hiddenDate = new Date(_local.getItem('native_hidden_date')) / 1000
       var hiddenPeriod = currentDate - hiddenDate
-      var hiddenInSeconds = 300
-      if (hiddenPeriod > hiddenInSeconds) {
+      var hiddenDuration = 86400 // seconds
+      if (hiddenPeriod > hiddenDuration) {
         _local.removeItem('native_hidden_date')
         return false
       }
