@@ -10,6 +10,8 @@ Demos are used to showcase different type of common ad layout you can create usi
 
 You don’t have to select one of the layouts from the demos below. In fact, we encourage publishers to design the ad format from scratch and use the placeholders to display the ad value.
 
+- Fixed Footer Bar: https://codepen.io/sayzlim/pen/Pdaojb
+- Floating Footer Bar: https://codepen.io/sayzlim/pen/KxbVoq
 - Grid Based Demo: https://codepen.io/sayzlim/pen/OvJPJR
 - Inline Sponsor Demo: https://codepen.io/sayzlim/pen/GxRgYE
 - Paragraph Inline Demo: https://codepen.io/sayzlim/pen/qyojRJ
@@ -125,3 +127,6 @@ Here are optionals value that should be used along to optimize the ad performanc
 - native_index: the index of returned ads, useful if you wish to display more than one ad on a single page
 - native_logo: the ad medium-size image URL
 - native_title: the ad title
+
+### Available Functions
+`_native.hide()` — you may pass this function into `onclick` event handler to hide the ad for 24 hours. For example, check out Flooating Footer Bar demo at https://codepen.io/sayzlim/pen/KxbVoq
