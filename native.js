@@ -24,7 +24,9 @@ var _native = (function () {
     _options = _construct(options)
 
     if (isAdHidden() === true) {
-      _native.hide()
+      document.addEventListener('DOMContentLoaded', function () {
+        _native.hide()
+      })
       return
     }
 
