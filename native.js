@@ -12,7 +12,7 @@ var _native = (function () {
     }
 
     if (typeof e === 'undefined') return defaultOptions
-    Object.keys(defaultOptions).forEach((key, index) => {
+    Object.keys(defaultOptions).forEach(function (key, index) {
       if (typeof e[key] === 'undefined') {
         e[key] = defaultOptions[key]
       }
@@ -30,7 +30,7 @@ var _native = (function () {
       return
     }
 
-    let jsonUrl = `https://srv.buysellads.com/ads/${zone}.json?callback=_native_go`
+    var jsonUrl = `https://srv.buysellads.com/ads/${zone}.json?callback=_native_go`
     if (_options['placement'] !== '') {
       jsonUrl += '&segment=placement:' + _options['placement']
     }
@@ -38,13 +38,13 @@ var _native = (function () {
       jsonUrl += '&ignore=yes'
     }
 
-    let srv = document.createElement('script')
+    var srv = document.createElement('script')
     srv.src = jsonUrl
     document.getElementsByTagName('head')[0].appendChild(srv)
   }
 
   var carbon = function (e) {
-    let srv = document.createElement('script')
+    var srv = document.createElement('script')
     srv.src = '//cdn.carbonads.com/carbon.js?serve=' + e['carbonZoneKey'] + '&placement=' + e['placement']
     srv.id = '_carbonads_js'
 
@@ -59,7 +59,7 @@ var _native = (function () {
     }
 
     var selectedClass = document.querySelectorAll('.' + _options['targetClass'])
-    selectedClass.forEach((className, index) => {
+    selectedClass.forEach(function (className, index) {
       var selectedTarget = document.getElementsByClassName(_options['targetClass'])[index]
       selectedTarget.innerHTML = null
       selectedTarget.style.display = 'none'
@@ -82,18 +82,18 @@ var _native = (function () {
 
   var sanitize = function (ads) {
     return ads
-      .filter(ad => {
+      .filter(function (ad) {
         return Object.keys(ad).length > 0
       })
-      .filter(ad => {
+      .filter(function (ad) {
         return ad.hasOwnProperty('statlink')
       })
   }
 
   var pixel = function (p, timestamp) {
-    let c = ''
+    var c = ''
     if (p) {
-      p.split('||').forEach((pixel, index) => {
+      p.split('||').forEach(function (pixel, index) {
         c += `<img src="${pixel.replace('[timestamp]', timestamp)}" style="display:none;" height="0" width="0" />`
       })
     }
@@ -115,13 +115,13 @@ var _native = (function () {
 })({})
 
 var _native_go = function (json) {
-  let options = _native.options()
-  let ads = _native.sanitize(json['ads'])
-  let selectedClass = document.querySelectorAll('.' + options['targetClass'])
+  var options = _native.options()
+  var ads = _native.sanitize(json['ads'])
+  var selectedClass = document.querySelectorAll('.' + options['targetClass'])
 
   if (ads.length < 1) {
-    selectedClass.forEach((className, index) => {
-      let selectedTarget = document.getElementsByClassName(options['targetClass'])[index]
+    selectedClass.forEach(function (className, index) {
+      var selectedTarget = document.getElementsByClassName(options['targetClass'])[index]
 
       if (options['fallback'] !== '' || options['carbonZoneKey'] !== '') selectedTarget.setAttribute('data-state', 'visible')
       selectedTarget.innerHTML = options['fallback']
@@ -132,14 +132,14 @@ var _native_go = function (json) {
     return
   }
 
-  selectedClass.forEach((className, index) => {
-    let selectedTarget = document.getElementsByClassName(options['targetClass'])[index]
-    let adElement = selectedTarget.innerHTML
-    let prefix = options['prefix']
-    let ad = ads[index]
+  selectedClass.forEach(function (className, index) {
+    var selectedTarget = document.getElementsByClassName(options['targetClass'])[index]
+    var adElement = selectedTarget.innerHTML
+    var prefix = options['prefix']
+    var ad = ads[index]
 
     if (ad && className) {
-      let adInnerHtml = adElement
+      var adInnerHtml = adElement
         .replace(new RegExp('#' + prefix + '_bg_color#', 'g'), ad['backgroundColor'])
         .replace(new RegExp('#' + prefix + '_bg_color_hover#', 'g'), ad['backgroundHoverColor'])
         .replace(new RegExp('#' + prefix + '_company#', 'g'), ad['company'])
