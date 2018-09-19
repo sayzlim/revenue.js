@@ -24,7 +24,7 @@ var _native = (function () {
     _options = _construct(options)
 
     if (isAdHidden() === true) {
-      hide()
+      _native.hide()
       return
     }
 
@@ -59,8 +59,8 @@ var _native = (function () {
     var selectedClass = document.querySelectorAll('.' + _options['targetClass'])
     selectedClass.forEach((className, index) => {
       var selectedTarget = document.getElementsByClassName(_options['targetClass'])[index]
-      selectedTarget.setAttribute('data-state', 'hidden')
-      selectedTarget.innerHTML = ''
+      selectedTarget.innerHTML = null
+      selectedTarget.style.display = 'none'
     })
   }
 
