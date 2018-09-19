@@ -1,5 +1,6 @@
 var _native = (function () {
   var _options = {}
+  var _local = window.localStorage
   var _construct = function (e) {
     var defaultOptions = {
       carbonZoneKey: '',
@@ -22,6 +23,11 @@ var _native = (function () {
   var init = function (zone, options) {
     _options = _construct(options)
 
+    if (isAdHidden() === true) {
+      hide()
+      return
+    }
+
     let jsonUrl = `https://srv.buysellads.com/ads/${zone}.json?callback=_native_go`
     if (_options['placement'] !== '') {
       jsonUrl += '&segment=placement:' + _options['placement']
@@ -41,6 +47,35 @@ var _native = (function () {
     srv.id = '_carbonads_js'
 
     return srv
+  }
+
+  var hide = function () {
+    _local.setItem('native_hidden', 'true')
+
+    if (_local.getItem('native_hidden_date') === null) {
+      _local.setItem('native_hidden_date', new Date())
+    }
+
+    var selectedClass = document.querySelectorAll('.' + _options['targetClass'])
+    selectedClass.forEach((className, index) => {
+      var selectedTarget = document.getElementsByClassName(_options['targetClass'])[index]
+      selectedTarget.setAttribute('data-state', 'hidden')
+      selectedTarget.innerHTML = ''
+    })
+  }
+
+  var isAdHidden = function () {
+    if (_local.getItem('native_hidden') === 'true') {
+      var currentDate = new Date() / 1000
+      var hiddenDate = new Date(_local.getItem('native_hidden_date')) / 1000
+      var hiddenPeriod = currentDate - hiddenDate
+      var hiddenInSeconds = 300
+      if (hiddenPeriod > hiddenInSeconds) {
+        _local.removeItem('native_hidden_date')
+        return false
+      }
+      return true
+    }
   }
 
   var sanitize = function (ads) {
@@ -70,6 +105,7 @@ var _native = (function () {
   return {
     carbon: carbon,
     init: init,
+    hide: hide,
     options: options,
     pixel: pixel,
     sanitize: sanitize
