@@ -30,7 +30,7 @@ var _native = (function () {
       return
     }
 
-    var jsonUrl = `https://srv.buysellads.com/ads/${zone}.json?callback=_native_go`
+    var jsonUrl = 'https://srv.buysellads.com/ads/' + zone + '.json?callback=_native_go'
     if (_options['placement'] !== '') {
       jsonUrl += '&segment=placement:' + _options['placement']
     }
@@ -94,7 +94,7 @@ var _native = (function () {
     var c = ''
     if (p) {
       p.split('||').forEach(function (pixel, index) {
-        c += `<img src="${pixel.replace('[timestamp]', timestamp)}" style="display:none;" height="0" width="0" />`
+        c += '<img src="' + pixel.replace('[timestamp]', timestamp) + '" style="display:none;" height="0" width="0" />'
       })
     }
     return c
