@@ -140,6 +140,7 @@ var _native_go = function (json) {
 
     if (ad && className) {
       var adInnerHtml = adElement
+        .replace(new RegExp('#' + prefix + '_via_link#', 'g'), ad['ad_via_link'])
         .replace(new RegExp('#' + prefix + '_bg_color#', 'g'), ad['backgroundColor'])
         .replace(new RegExp('#' + prefix + '_bg_color_hover#', 'g'), ad['backgroundHoverColor'])
         .replace(new RegExp('#' + prefix + '_company#', 'g'), ad['company'])
