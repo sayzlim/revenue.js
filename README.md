@@ -123,10 +123,13 @@ Here are optionals value that should be used along to optimize the ad performanc
 - native_cta_bg_color_hover: the call to action background color
 - native_cta_color: call to action text color
 - native_cta_color_hover: call to action text color on hover
-- native_img: the ad small image URL that includes `src` tag to avoid double request.
 - native_index: the index of returned ads, useful if you wish to display more than one ad on a single page
-- native_logo: the ad medium-size image URL that includes `src` tag to avoid double request.
 - native_title: the ad title
+
+There are other two values that you must request differently. Instead of using `img src=#native_logo#` to request the image, you have to use `img native_src="#native_logo#"` to request image to avoid sending empty request to load the image.
+
+- native_small_img: the ad small image URL
+- native_logo: the ad medium-size image URL
 
 ### Available Functions
 `_native.hide()` — you may pass this function into `onclick` event handler to hide the ad for 24 hours. For example, check out Flooating Footer Bar demo at https://codepen.io/sayzlim/pen/KxbVoq
